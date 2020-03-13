@@ -1,6 +1,3 @@
-const fs = require('fs');
+const getNotes = require('./notes.js');
 
-//fs.writeFileSync('notes.txt', 'My name is Jeff Slavin.');
-
-// Challenge Area
-fs.appendFileSync('notes.txt', '\nThis is another line');
+console.log(getNotes());
