@@ -1,0 +1,5 @@
+# Files to ignore
+PDF\ Guide.pdf
+
+# Folders to ignore
+npm_modules
