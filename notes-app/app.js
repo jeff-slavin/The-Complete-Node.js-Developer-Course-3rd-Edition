@@ -2,11 +2,23 @@
 const getNotes = require('./notes.js');
 const chalk = require('chalk');
 
-console.log(getNotes());
-//console.log(validator.isEmail('jeff.slavin@outlook.com'));
-//console.log(validator.isURL('https://hangman.slavsites.com'));
+const command = process.argv[2];
 
-const chalkError = chalk.bold.yellow;
+console.log(process.argv);
 
-console.log(chalk.blue.bold.inverse('Success!'));
-console.log(chalkError('This is my error message!'));
+if (command === 'add') {
+    console.log('Adding note!');
+} else if (command === 'remove') {
+    console.log('Removing note!');
+};
+
+// console.log(getNotes());
+// console.log(validator.isEmail('jeff.slavin@outlook.com'));
+// console.log(validator.isURL('https://hangman.slavsites.com'));
+
+// const chalkError = chalk.bold.yellow;
+
+// console.log(chalk.blue.bold.inverse('Success!'));
+// console.log(chalkError('This is my error message!'));
+
+// console.log(process.argv[2]);
