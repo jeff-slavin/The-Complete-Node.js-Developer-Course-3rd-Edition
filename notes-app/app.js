@@ -14,8 +14,21 @@ yargs.version('1.1.0');
 yargs.command({
     command: 'add',
     describe: 'Add a new note',
-    handler: function () {
-        console.log('Adding a new note');
+    builder: {
+        title: {
+            describe: 'Note title',
+            demandOption: true,  // set to false as default, overriding to true means you MUST supply this property
+            type: 'string'  // enforces that we get a string value for title (instead of boolean etc..)
+        },
+        body: {
+            describe: 'Note body',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler: function (argv) {
+        console.log('Title: ' + argv.title);
+        console.log('Body: ' + argv.body);
     }
 });
 
@@ -46,11 +59,9 @@ yargs.command({
     }
 });
 
+yargs.parse();  // parses the arguments w/ the details
 
-
-
-
-console.log(yargs.argv);
+//console.log(yargs.argv);
 
 // if (command === 'add') {
 //     console.log('Adding note!');
