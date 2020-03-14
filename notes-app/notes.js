@@ -2,6 +2,6 @@
 //     return 'Your notes...';
 // };
 
-const getNotes = () => 'Your notes again...';
+const getNotes = () => 'Your notes again... A Git Change';
 
 module.exports = getNotes;
