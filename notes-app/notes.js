@@ -1,7 +1,7 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
-const getNotes = () => 'Your notes again... A Git Change';
+//const getNotes = () => 'Your notes again... A Git Change';
 
 const readNote = (title) => {
     const notes = loadNotes();
