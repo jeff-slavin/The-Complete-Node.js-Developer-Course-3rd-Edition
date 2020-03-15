@@ -3,6 +3,18 @@ const chalk = require('chalk');
 
 const getNotes = () => 'Your notes again... A Git Change';
 
+const readNote = (title) => {
+    const notes = loadNotes();
+
+    const note = notes.find( (note) => note.title.toLowerCase() === title.toLowerCase());
+
+    if (note) {
+        console.log(chalk.blue.inverse(note.title) + ': ' + chalk.blue(note.body));
+    } else {
+        console.log(chalk.red(`No note found with the title "${title}"`));
+    };
+};
+
 const listNotes = () => {
     console.log(chalk.inverse('Your notes:'));
     loadNotes().forEach((note) => {
@@ -30,9 +42,12 @@ const addNote = (title, body) => {
     const notes = loadNotes();
 
     // Does title already exist? If so, do not allow add
-    const duplicateNotes = notes.filter( (note) => note.title.toLowerCase() === title.toLowerCase());
+    // The below would look through all notes, if we had 10000 notes, even when it finds a match, it would still look through them all
+    //const duplicateNotes = notes.filter( (note) => note.title.toLowerCase() === title.toLowerCase());
+    // This is how to stop the process once you find a duplicate
+    const duplicateNote = notes.find((note) => note.title.toLowerCase() === title.toLowerCase());
 
-    if (duplicateNotes.length === 0) {
+    if (!duplicateNote) {   // better way using the new singular 'duplicateNote' variable above
         notes.push({
             title: title,
             body: body
@@ -64,5 +79,6 @@ module.exports = {
     getNotes: getNotes,
     addNote: addNote,
     removeNote: removeNote,
-    listNotes: listNotes
+    listNotes: listNotes,
+    readNote: readNote
 }
