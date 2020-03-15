@@ -1,6 +1,25 @@
 const fs = require('fs');
+const chalk = require('chalk');
 
 const getNotes = () => 'Your notes again... A Git Change';
+
+const removeNote = (title) => {
+    const notes = loadNotes();
+
+    const keepNotes = notes.filter( (note) => {
+        return note.title.toLowerCase() !== title.toLowerCase();
+    });
+
+    // Was a note removed?
+    if (keepNotes.length !== notes.length ) {
+        saveNotes(keepNotes);
+        // could also do chalk.green.inverse (although would be black text, below has white text)
+        console.log(chalk.bgGreen(`Note with title "${title}" removed.`))
+    } else {
+        // could also do chalk.red.inverse (although would be black text, below has white text)
+        console.log(chalk.bgRed(`No notes matching the title "${title}" to remove.`));
+    };
+};
 
 const addNote = (title, body) => {
     const notes = loadNotes();
@@ -17,9 +36,9 @@ const addNote = (title, body) => {
         });
     
         saveNotes(notes);
-        console.log('New note added');
+        console.log(chalk.green.inverse('New note added'));
     } else {
-        console.log('Note title taken');
+        console.log(chalk.red.inverse('Note title taken'));
     };
 };
 
@@ -40,5 +59,6 @@ const loadNotes = () => {
 
 module.exports = {
     getNotes: getNotes,
-    addNote: addNote
+    addNote: addNote,
+    removeNote: removeNote
 }
