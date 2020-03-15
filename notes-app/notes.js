@@ -3,6 +3,13 @@ const chalk = require('chalk');
 
 const getNotes = () => 'Your notes again... A Git Change';
 
+const listNotes = () => {
+    console.log(chalk.inverse('Your notes:'));
+    loadNotes().forEach((note) => {
+        console.log(note.title);
+    });
+};
+
 const removeNote = (title) => {
     const notes = loadNotes();
 
@@ -56,5 +63,6 @@ const loadNotes = () => {
 module.exports = {
     getNotes: getNotes,
     addNote: addNote,
-    removeNote: removeNote
+    removeNote: removeNote,
+    listNotes: listNotes
 }
