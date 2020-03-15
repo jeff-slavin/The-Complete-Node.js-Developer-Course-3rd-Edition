@@ -6,9 +6,7 @@ const getNotes = () => 'Your notes again... A Git Change';
 const removeNote = (title) => {
     const notes = loadNotes();
 
-    const keepNotes = notes.filter( (note) => {
-        return note.title.toLowerCase() !== title.toLowerCase();
-    });
+    const keepNotes = notes.filter( (note) => note.title.toLowerCase() !== title.toLowerCase());
 
     // Was a note removed?
     if (keepNotes.length !== notes.length ) {
@@ -25,9 +23,7 @@ const addNote = (title, body) => {
     const notes = loadNotes();
 
     // Does title already exist? If so, do not allow add
-    const duplicateNotes = notes.filter( (note) => {
-        return note.title.toLowerCase() === title.toLowerCase();
-    });
+    const duplicateNotes = notes.filter( (note) => note.title.toLowerCase() === title.toLowerCase());
 
     if (duplicateNotes.length === 0) {
         notes.push({
