@@ -1,8 +1,6 @@
 const fs = require('fs');
 const chalk = require('chalk');
 
-//const getNotes = () => 'Your notes again... A Git Change';
-
 const readNote = (title) => {
     const notes = loadNotes();
 
@@ -47,6 +45,11 @@ const addNote = (title, body) => {
     // This is how to stop the process once you find a duplicate
     const duplicateNote = notes.find((note) => note.title.toLowerCase() === title.toLowerCase());
 
+    //debugger; // pause debugger (if app.js started with "node inspect app.js......" then code will pause at start, and then here as well)
+
+    // console.log(duplicateNote); // debugging
+    // console.log(title); // debugging
+
     if (!duplicateNote) {   // better way using the new singular 'duplicateNote' variable above
         notes.push({
             title: title,
@@ -76,7 +79,6 @@ const loadNotes = () => {
 };
 
 module.exports = {
-    getNotes: getNotes,
     addNote: addNote,
     removeNote: removeNote,
     listNotes: listNotes,
