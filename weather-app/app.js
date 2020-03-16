@@ -16,7 +16,16 @@ request({ url: url, json: true}, (error, response) => {
     //console.log(response);
 });
 
-console.log('Calling for weather data.');
+// Geocoding Service - converting a location to a lat/long
+// user Provide address -> API converts to lat/long -> use with DarkSky API to get weather data (user does not need to know we converted to lat/long)
+
+const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Los%20Angeles.json?access_token=pk.eyJ1IjoiamVmZnNsYXZpbiIsImEiOiJjazd1MTZncGQwMnY2M3FwYXlhYXpzNzVnIn0.m4xObm7BEugqQk1jMAntFA&limit=1';
+
+request({url: geocodeURL, json: true}, (error, response) => {
+    console.log(`Latitude: ${response.body.features[0].center[1]} - Longitude: ${response.body.features[0].center[0]}`);
+});
+
+console.log('Calling for weather data.');   // just showing this prints first while the weather data is waiting to come back (async)
 
 
 
