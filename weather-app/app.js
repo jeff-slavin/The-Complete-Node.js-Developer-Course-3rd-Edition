@@ -6,8 +6,11 @@ const forecast = require('./utils/forecast');
 const address = process.argv[2];
 
 if(!address) {
+
     console.log('Please provide an address');
+
 } else {
+
     geocode(address, (error, geocodeData) => {
     
         if (error) {
@@ -22,6 +25,7 @@ if(!address) {
     
             console.log(geocodeData.location);
             console.log(forecastData);
+            
         });
     });
 };
