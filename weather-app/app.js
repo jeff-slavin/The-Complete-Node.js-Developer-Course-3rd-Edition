@@ -30,22 +30,21 @@ request({ url: url, json: true}, (error, response) => {
 //user Provide address -> API converts to lat/long -> use with DarkSky API to get weather data (user does not need to know we converted to lat/long)
 
 const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/Denver.json?access_token=pk.eyJ1IjoiamVmZnNsYXZpbiIsImEiOiJjazd1MTZncGQwMnY2M3FwYXlhYXpzNzVnIn0.m4xObm7BEugqQk1jMAntFA&limit=1';
+//invalid location below '12what' instead of a search term
 //const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/12what.json?access_token=pk.eyJ1IjoiamVmZnNsYXZpbiIsImEiOiJjazd1MTZncGQwMnY2M3FwYXlhYXpzNzVnIn0.m4xObm7BEugqQk1jMAntFA&limit=1';
 
 request({url: geocodeURL, json: true}, (error, response) => {
 
-    if(error) {
+    if(error) { // low level errors (e.g. no internet connection)
         console.log('Unable to connect to geocoding service');
-    } else if (response.body.features.length === 0) {
+    } else if (response.body.features.length === 0) {   // higher leve errors, response does not include data
         console.log('Unable to find goecode location. Try another search.');
-    } else {
+    } else {    // successful response
         console.log(`Latitude: ${response.body.features[0].center[1]} - Longitude: ${response.body.features[0].center[0]}`);
     };
 });
 
 // console.log('Calling for weather data.');   // just showing this prints first while the weather data is waiting to come back (async)
-
-
 
 // console.log('Starting');
 
