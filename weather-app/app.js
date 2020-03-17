@@ -1,11 +1,32 @@
-//const request = require('request');
 const geocode = require('./utils/geocode');
 const forecast = require('./utils/forecast');
 
-geocode('Long Beach', (error, data) => {
-    console.log('Error: ', error);
-    console.log('Data: ', data);
-});
+//console.log(process.argv);
+
+const address = process.argv[2];
+
+if(!address) {
+    console.log('Please provide an address');
+} else {
+    geocode(address, (error, geocodeData) => {
+    
+        if (error) {
+            return console.log('Error: ' + error);
+        };
+    
+        forecast(geocodeData.latitude, geocodeData.longitude, (error, forecastData) => {
+    
+            if (error) {
+                return console.log('Error: ' + error);
+            };
+    
+            console.log(geocodeData.location);
+            console.log(forecastData);
+        });
+    });
+};
+
+
 
 //
 // Goal: Create a reusable function for getting the forecast
@@ -16,13 +37,6 @@ geocode('Long Beach', (error, data) => {
 //    - Low level error, pass string for error
 //    - Coordinate error, pass string for error
 //    - Success, pass forecast string for data (same format as from before)
-
-forecast(-75.7088, 44.1545, (error, data) => {
-    console.log('Error: ', error)
-    console.log('Data: ', data)
-});
-
-
 
 
 // const url = 'https://api.darksky.net/forecast/6006c02deeed9fafd051c34da1805c7f/37.8267,-122.4233?';
