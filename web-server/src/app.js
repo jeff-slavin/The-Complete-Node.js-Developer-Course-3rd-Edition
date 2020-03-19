@@ -47,7 +47,7 @@ app.get('/weather', (req, res) => {
     });
 });
 
-// Will match any page that starts with /help/ and then anything after that
+// Will match any page that starts with /help/ and then anything after that (that was not a match in the above app.get calls)
 app.get('/help/*', (req, res) => {
     res.render('404', {
         title: '404',
