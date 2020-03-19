@@ -3,13 +3,17 @@
 <HTML>
 
     <HEAD>
+        <TITLE>Help</TITLE>
+        <LINK REL="icon" HREF="/img/weather.png">
         <LINK REL="stylesheet" HREF="/css/styles.css">  <!-- absolute path -->
     </HEAD>
 
     <BODY>
-        {{>header}}
+        <DIV class="main-content">
+            {{>header}}
+            <P>{{helpText}}</P>
+        </DIV>
 
-        <P>{{helpText}}</P>
 
         {{>footer}}
     </BODY>
