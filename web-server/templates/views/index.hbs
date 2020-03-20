@@ -6,17 +6,22 @@
         <TITLE>Weather</TITLE>
         <LINK REL="icon" HREF="/img/weather.png">
         <LINK REL="stylesheet" HREF="/css/styles.css">  <!-- absolute path -->
-        <SCRIPT SRC="/js/app.js"></SCRIPT>
     </HEAD>
 
     <BODY>
         <DIV CLASS="main-content">
             {{>header}}
             <P>Use this site to get your weather!</P>
+
+            <FORM>
+                <INPUT PLACEHOLDER="Location">
+                <BUTTON>Search</BUTTON>
+            </FORM>
         </DIV>
 
         {{>footer}}
 
+        <SCRIPT SRC="/js/app.js"></SCRIPT>
     </BODY>
 
 </HTML>
