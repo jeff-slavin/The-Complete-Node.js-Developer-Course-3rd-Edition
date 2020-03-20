@@ -47,7 +47,7 @@ console.log(rating);    // there is no 'rating' variable in the object, so will 
 // };
 
 // Can destructure right in the function's argument list
-const transaction = (type, {label, stock}) => {
+const transaction = (type, {label, stock = 0} = {}) => {
     console.log(type, label, stock);
 };
 
