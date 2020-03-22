@@ -16,11 +16,54 @@ MongoClient.connect(connectionURL, { useUnifiedTopology: true }, (error, client)
     //console.log('Connected correctly!');
     const db = client.db(databaseName); // if database does not exist, it gets created
 
+    console.log('Inserting to database...');
+
     // select collection do we want to insert into - creates collection if does not exist
-    db.collection('users').insertOne({
-        name: 'Jeff',
-        age: 38
+    // Asynchronous call below
+    // db.collection('users').insertOne({
+    //     name: 'Jeff',
+    //     age: 38
+    // }, (error, result) => {
+    //     if(error) {
+    //         return console.log('Unable to insert user');
+    //     };
+
+    //     console.log(result.ops);
+    // });
+
+    // db.collection('users').insertMany([
+    //     {
+    //         name: 'Jenn',
+    //         age: 37
+    //     },{
+    //         name: 'Noah',
+    //         age: 4
+    //     }
+    // ], (error, result) => {
+    //     if(error) {
+    //         return console.log('Unable to insert users');
+    //     };
+    //     console.log(result.ops);
+    // });
+
+    db.collection('tasks').insertMany([
+        {
+            description: 'Clean the house',
+            completed: true
+        },{
+            description: 'Renew inspection',
+            completed: false
+        },{
+            description: 'Pot plants',
+            completed: false
+        }
+    ], (error, result) => {
+        if(error) {
+            return console.log('Unable to insert tasks');
+        };
+
+        console.log(result.ops);
     });
 
-
+    console.log('End of code');
 });
