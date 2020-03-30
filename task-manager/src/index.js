@@ -26,9 +26,10 @@ const port = process.env.PORT || 3000;
 // });
 
 // Challenge: Create a middleware function for 'maintenance' disabling all calls and sending a maintenance message with 503 error
-app.use((req, res, next) => {
-    res.status(503).send('Site is currently under maintenance. Check back soon');
-});
+// MIDDLEWARE FUNCTION (runs before all app.use routers below - this code must be above the other app.use lines below)
+// app.use((req, res, next) => {
+//     res.status(503).send('Site is currently under maintenance. Check back soon');
+// });
 
 // These lines need to be below any middleware functions defined (like above)
 app.use(express.json());    // automatically parses incoming data as JSON to an object
