@@ -62,3 +62,16 @@ app.listen(port, () => {
 // };
 
 // myFunction();
+
+// TESTING toJSON that we've added to our User
+// const pet = {
+//     name: 'Larry'
+// };
+
+// pet.toJSON = function () {
+//     // console.log(this);
+//     // return this;
+//     return {};
+// };
+
+// console.log(JSON.stringify(pet));

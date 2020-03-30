@@ -50,6 +50,19 @@ const userSchema = new mongoose.Schema({
 });
 
 // Methods are available on a specific user
+
+// Important to name this as 'toJSON'
+// When we send objects to res.send, they get stringified by calling toJSON - so we've intercepted this
+userSchema.methods.toJSON = function() {
+    const user = this;
+    const userObject = user.toObject();
+
+    delete userObject.password;
+    delete userObject.tokens;
+
+    return userObject;
+};
+
 userSchema.methods.generateAuthToken = async function () {
     const user = this;  // not necessary, but makes it easier to read instead of using 'this' everywhere
     const token = jwt.sign({ _id: user._id.toString() }, 'thisismynewcourse');
@@ -58,7 +71,7 @@ userSchema.methods.generateAuthToken = async function () {
     await user.save();
 
     return token;
-}
+};
 
 // Statics are available on the 'User' model
 userSchema.statics.findByCredentials = async (email, password) => {
