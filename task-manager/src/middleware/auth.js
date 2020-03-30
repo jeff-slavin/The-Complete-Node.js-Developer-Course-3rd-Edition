@@ -11,6 +11,7 @@ const auth = async (req, res, next) => {
             throw new Error();
         };
 
+        req.token = token;  //adding token to our data for req
         req.user = user;    // adding data to our req (so our route handler has this)
         next(); // let route handler run (authentication has been validated)
     } catch (error) {

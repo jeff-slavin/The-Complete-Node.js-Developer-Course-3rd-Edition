@@ -25,6 +25,31 @@ router.post('/users/login', async (req, res) => {
     };
 });
 
+// logs out of a single session
+router.post('/users/logout', auth, async (req, res) => {
+    try {
+        req.user.tokens = req.user.tokens.filter((token) => {
+            return token.token != req.token;
+        });
+        await req.user.save();
+
+        res.send();
+    } catch (error) {
+        res.status(500).send();
+    };
+});
+
+//logs out of all sessions
+router.post('/users/logoutAll', auth, async (req, res) => {
+    try {
+        req.user.tokens = [];
+        await req.user.save();
+        res.send();
+    } catch (error) {
+        res.status(500).send();
+    };
+});
+
 // Adding middleware here (by including our middleware as the 2nd parameter and pushing our function to the third)
 // router.get('/users', auth, async (req, res) => {
 //     try {
