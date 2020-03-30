@@ -56,7 +56,7 @@ router.patch('/users/:id', async (req, res) => {
     };
 
     try {
-        // this bypasses any middleware (e.g. 'save' middleware);
+        // this bypasses any middleware (e.g. 'save' middleware) - not ideal for us;
         // const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         const user = await User.findById(req.params.id);
 
