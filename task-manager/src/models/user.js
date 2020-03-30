@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -39,9 +40,27 @@ const userSchema = new mongoose.Schema({
                 throw new Error('Age must be a positive number');
             };
         }
-    }
+    },
+    tokens: [{
+        token: {
+            type: String,
+            required: true
+        }
+    }]
 });
 
+// Methods are available on a specific user
+userSchema.methods.generateAuthToken = async function () {
+    const user = this;  // not necessary, but makes it easier to read instead of using 'this' everywhere
+    const token = jwt.sign({ _id: user._id.toString() }, 'thisismynewcourse');
+
+    user.tokens = user.tokens.concat({ token });    // add to user token's array
+    await user.save();
+
+    return token;
+}
+
+// Statics are available on the 'User' model
 userSchema.statics.findByCredentials = async (email, password) => {
     const user = await User.findOne({ email });
 
