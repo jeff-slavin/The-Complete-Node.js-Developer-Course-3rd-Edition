@@ -28,7 +28,12 @@ router.get('/tasks', auth, async (req, res) => {
         //const tasks = await Task.find({ owner: req.user._id });   // another way of doing the below
         await req.user.populate({
             path: 'tasks',
-            match
+            match,
+            options: {
+                // limit and skip allow pagination, parseInt ignores any invalid number values (e.g. you pass a letter instead of a number)
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip)
+            }
         }).execPopulate();
         res.send(req.user.tasks);   // updated this line since now user.tasks has them
     } catch (error) {
