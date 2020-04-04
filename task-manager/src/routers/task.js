@@ -17,11 +17,21 @@ router.post('/tasks', auth, async (req, res) => {
     };
 });
 
+// GET /tasks?completed=true
+// GET /tasks?limit=2&skip=2
+// GET /tasks?sortBy=createdAt:desc
 router.get('/tasks', auth, async (req, res) => {
     const match = {};
-    
+    const sort = {};
+
+    // if query is provided, then will equal true or false, otherwise will not exist at all (return everything)
     if (req.query.completed) {
         match.completed = req.query.completed === 'true';
+    };
+
+    if (req.query.sortBy) {
+        const parts = req.query.sortBy.split(':');
+        sort[parts[0]] = parts[1] === 'desc' ? -1 : 1;
     };
 
     try {
@@ -32,7 +42,8 @@ router.get('/tasks', auth, async (req, res) => {
             options: {
                 // limit and skip allow pagination, parseInt ignores any invalid number values (e.g. you pass a letter instead of a number)
                 limit: parseInt(req.query.limit),
-                skip: parseInt(req.query.skip)
+                skip: parseInt(req.query.skip),
+                sort
             }
         }).execPopulate();
         res.send(req.user.tasks);   // updated this line since now user.tasks has them
