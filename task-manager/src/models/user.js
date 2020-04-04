@@ -49,6 +49,13 @@ const userSchema = new mongoose.Schema({
     }]
 });
 
+// Virtual Property - a relationship between two entities
+userSchema.virtual('tasks', {
+    ref: 'Task',
+    localField: '_id',
+    foreignField: 'owner'
+});
+
 // Methods are available on a specific user
 
 // Important to name this as 'toJSON'
