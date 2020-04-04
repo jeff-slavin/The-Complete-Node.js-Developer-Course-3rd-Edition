@@ -8,10 +8,26 @@ const taskRouter = require('./routers/task');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(express.json());    // automatically parses incoming data as JSON to an object
+app.use(express.json());
 app.use(userRouter);
 app.use(taskRouter);
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
 });
+
+// Playground Area
+const Task = require('./models/task');
+const User = require('./models/user');
+
+const main = async () => {
+    // const task = await Task.findById('5e881269c4bb7a188cd6f6dd');
+    // await task.populate('owner').execPopulate();
+    // console.log(task.owner);
+
+    const user = await User.findById('5e88110aff2bb7342094495c');
+    await user.populate('tasks').execPopulate();
+    console.log(user.tasks);
+};
+
+main();
