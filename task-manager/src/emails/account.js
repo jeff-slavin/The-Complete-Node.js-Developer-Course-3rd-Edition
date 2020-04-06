@@ -11,7 +11,7 @@ const sendWelcomeEmail = (email, name) => {
     });
 };
 
-const sendCancellationEmail = (email, name) => {
+const sendCancelationEmail = (email, name) => {
     sgMail.send({
         to: email,
         from: 'jeff.slavin@outlook.com',
@@ -22,5 +22,5 @@ const sendCancellationEmail = (email, name) => {
 
 module.exports = {
     sendWelcomeEmail,
-    sendCancellationEmail
+    sendCancelationEmail
 };
