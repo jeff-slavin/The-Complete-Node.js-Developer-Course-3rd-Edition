@@ -1,12 +1,26 @@
 const sgMail = require('@sendgrid/mail');
 
-const sendgridAPIKey = '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';
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-sgMail.setApiKey(sendgridAPIKey);
+const sendWelcomeEmail = (email, name) => {
+    sgMail.send({
+        to: email,
+        from: 'jeff.slavin@outlook.com',
+        subject: 'Welcome to the Task Manager!',
+        text: `Welcome to the app ${name}. Let me know how you get along with the task app.`
+    });
+};
 
-sgMail.send({
-    to: 'jeff.slavin@outlook.com',
-    from: 'jeff.slavin@outlook.com',
-    subject: 'This is my first creation!',
-    text: 'I hope this one actually gets to you.'
-});
+const sendCancellationEmail = (email, name) => {
+    sgMail.send({
+        to: email,
+        from: 'jeff.slavin@outlook.com',
+        subject: 'We are sorry to see you leave the Task Manager',
+        text: `Goodbye ${name}. We are sorry to see you leave the Task Manager App. Is there anything we could have done differently to keep you as a customer?`
+    });
+};
+
+module.exports = {
+    sendWelcomeEmail,
+    sendCancellationEmail
+};
