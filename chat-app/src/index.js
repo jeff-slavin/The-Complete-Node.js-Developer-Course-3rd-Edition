@@ -23,6 +23,11 @@ io.on('connection', (socket) => {
         io.emit('message', message);    // send to all connected clients
     });
 
+    socket.on('sendLocation', (coords) => {
+        //io.emit('message', `Location: ${coords.latitude}, ${coords.longitude}`);
+        io.emit('message', `https://google.com/maps?q=${coords.latitude},${coords.longitude}`);
+    });
+
     socket.on('disconnect', () => {
         // Client has already been disconnected
         // so don't need to use 'broadcast', can just send the message to all clients still connected
