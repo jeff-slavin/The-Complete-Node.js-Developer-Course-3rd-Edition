@@ -17,8 +17,16 @@ io.on('connection', (socket) => {
 
     socket.emit('message', 'Welcome!'); // send only to the specific client
 
+    socket.broadcast.emit('message', 'A new user has joined!'); // send to all clients except the current one
+
     socket.on('sendMessage', (message) => {
         io.emit('message', message);    // send to all connected clients
+    });
+
+    socket.on('disconnect', () => {
+        // Client has already been disconnected
+        // so don't need to use 'broadcast', can just send the message to all clients still connected
+        io.emit('message', 'A user has left!');
     });
 });
 
