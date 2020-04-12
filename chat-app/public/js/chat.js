@@ -1,17 +1,31 @@
 const socket = io();
 
+// Elements ($ is a convention that this is an element from the DOM)
+const $messageForm = document.querySelector('#message-form');
+const $messageFormInput = $messageForm.querySelector('input');
+const $messageFormButton = $messageForm.querySelector('button');
+const $sendLocationButton = document.querySelector('#send-location');
+
 socket.on('message', (msg) => {
     console.log(msg);
 });
 
-document.querySelector('#message-form').addEventListener('submit', (e) => {
+$messageForm.addEventListener('submit', (e) => {
     e.preventDefault();
+
+    // disable form (submit button)
+    $messageFormButton.setAttribute('disabled', 'disabled');
 
     const message = e.target.elements.message.value;    // e is the form, message is the name of the element (the one we set)
 
     //socket.emit('sendMessage', message);
     // Last argument is a function that runs when the acknowledgement is received
     socket.emit('sendMessage', message, (error) => {
+        // re-enable the form
+        $messageFormButton.removeAttribute('disabled');
+        $messageFormInput.value = '';
+        $messageFormInput.focus();
+
         if (error) {
             return console.log(error);
         };
@@ -20,10 +34,12 @@ document.querySelector('#message-form').addEventListener('submit', (e) => {
     });
 });
 
-document.querySelector('#send-location').addEventListener('click', () => {
+$sendLocationButton.addEventListener('click', () => {
     if (!navigator.geolocation) {   // checks that the browser supports this
-        return alert('Gelocation is not supported by your browser.');
+        return alert('Geolocation is not supported by your browser.');
     };
+
+    $sendLocationButton.setAttribute('disabled', 'disabled');
 
     // function below does not support promises (async await)
     navigator.geolocation.getCurrentPosition((position) => {
@@ -31,6 +47,7 @@ document.querySelector('#send-location').addEventListener('click', () => {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude
         }, () => {
+            $sendLocationButton.removeAttribute('disabled');
             console.log('Location shared!');
         });
     });
