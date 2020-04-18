@@ -17,9 +17,19 @@ app.use(express.static(publicDirectoryPath));
 io.on('connection', (socket) => {
     console.log('New web socket connection');
 
-    socket.emit('message', generateMessage('Welcome!')); // send only to the specific client
+    socket.on('join', ({ username, room }) => {
+        socket.join(room);
 
-    socket.broadcast.emit('message', generateMessage('A new user has joined!')); // send to all clients except the current one
+        socket.emit('message', generateMessage('Welcome!')); // send only to the specific client
+        socket.broadcast.to(room).emit('message', generateMessage(`${username} has joined!`)); // send to all clients except the current one
+
+        // socket.emit - sends message to specific client
+        // io.emit - every connected client
+        // socket.braodcast.emit - every connected client except for this one
+
+        // io.to.emit - emits an event to everyone in a specific room
+        // socket.broadcast.to.emit - sends an event to everyone in the specific room, except for this one
+    });
 
     // callback we call to acknowledge the reception
     socket.on('sendMessage', (message, callback) => {
@@ -29,7 +39,7 @@ io.on('connection', (socket) => {
             return callback('Profanity is not allowed!');
         };
 
-        io.emit('message', generateMessage(message));    // send to all connected clients
+        io.to('SouthCO').emit('message', generateMessage(message));    // send to all connected clients
         callback();
     });
 
