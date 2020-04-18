@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<HTML>
+    <HEAD>
+        <TITLE>Chat App</TITLE>
+        <LINK REL="icon" HREF="/img/favicon.png">
+        <LINK REL="stylesheet" HREF="/css/styles.min.css">
+    </HEAD>
+    <BODY>
+        <DIV class="chat">
+            <DIV class="chat__sidebar">
+
+            </DIV>
+            <DIV class="chat__main">
+                <DIV id="messages" class="chat__messages"></DIV>
+
+                <DIV class="compose">
+                    <FORM id="message-form">
+                        <INPUT name="message" placeholder="Message">
+                        <BUTTON>Send</BUTTON>
+                    </FORM>
+                    <BUTTON id="send-location">Send location</BUTTON>
+                </DIV>
+            </DIV>
+        </DIV>
+
+        <SCRIPT id="message-template" type="text/html">
+            <DIV class="message">
+                <P>
+                    <SPAN class="message__name">Some User Name</SPAN>
+                    <SPAN class="message__meta">{{createdAt}}</SPAN>
+                </P>
+                <P>{{message}}</P>
+            </DIV>
+        </SCRIPT>
+
+        <SCRIPT id="location-message-template" type="text/html">
+            <DIV class="message">
+                <P>
+                    <SPAN class="message__name">Some User Name</SPAN>
+                    <SPAN class="message__meta">{{createdAt}}</SPAN>
+                </P>
+                <P><A HREF="{{url}}" target="_blank">My current location</A></P>
+            </DIV>
+        </SCRIPT>
+
+        <SCRIPT src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/3.0.1/mustache.min.js"></SCRIPT>
+        <SCRIPT src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></SCRIPT>
+        <SCRIPT src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.6.0/qs.min.js"></SCRIPT>
+        <SCRIPT src="/socket.io/socket.io.js"></SCRIPT>
+        <SCRIPT src="/js/chat.js"></SCRIPT>
+    </BODY>
+</HTML>
