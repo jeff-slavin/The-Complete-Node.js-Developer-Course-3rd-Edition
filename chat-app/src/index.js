@@ -3,6 +3,7 @@ const http = require('http');
 const express = require('express');
 const socketio = require('socket.io');
 const Filter = require('bad-words');
+const { generateMessage } = require('./utils/messages');
 
 const app = express();
 const server = http.createServer(app);
@@ -16,9 +17,9 @@ app.use(express.static(publicDirectoryPath));
 io.on('connection', (socket) => {
     console.log('New web socket connection');
 
-    socket.emit('message', 'Welcome!'); // send only to the specific client
+    socket.emit('message', generateMessage('Welcome!')); // send only to the specific client
 
-    socket.broadcast.emit('message', 'A new user has joined!'); // send to all clients except the current one
+    socket.broadcast.emit('message', generateMessage('A new user has joined!')); // send to all clients except the current one
 
     // callback we call to acknowledge the reception
     socket.on('sendMessage', (message, callback) => {
@@ -28,7 +29,7 @@ io.on('connection', (socket) => {
             return callback('Profanity is not allowed!');
         };
 
-        io.emit('message', message);    // send to all connected clients
+        io.emit('message', generateMessage(message));    // send to all connected clients
         callback();
     });
 
@@ -41,7 +42,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         // Client has already been disconnected
         // so don't need to use 'broadcast', can just send the message to all clients still connected
-        io.emit('message', 'A user has left!');
+        io.emit('message', generateMessage('A user has left!'));
     });
 });
 
