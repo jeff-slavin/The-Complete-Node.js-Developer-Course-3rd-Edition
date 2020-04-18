@@ -1,27 +1,46 @@
 <!DOCTYPE html>
 
 <HTML>
-    <HEAD></HEAD>
+    <HEAD>
+        <TITLE>Chat App</TITLE>
+        <LINK REL="icon" HREF="/img/favicon.png">
+        <LINK REL="stylesheet" HREF="/css/styles.min.css">
+    </HEAD>
     <BODY>
-        Chat App
-        
-        <DIV id="messages"></DIV>
+        <DIV class="chat">
+            <DIV class="chat__sidebar">
 
-        <FORM id="message-form">
-            <INPUT name="message" placeholder="Message">
-            <BUTTON>Send</BUTTON>
-        </FORM>
-        <BUTTON id="send-location">Send location</BUTTON>
+            </DIV>
+            <DIV class="chat__main">
+                <DIV id="messages" class="chat__messages"></DIV>
+
+                <DIV class="compose">
+                    <FORM id="message-form">
+                        <INPUT name="message" placeholder="Message">
+                        <BUTTON>Send</BUTTON>
+                    </FORM>
+                    <BUTTON id="send-location">Send location</BUTTON>
+                </DIV>
+            </DIV>
+        </DIV>
 
         <SCRIPT id="message-template" type="text/html">
-            <DIV>
-                <P>{{createdAt}} - {{message}}</P>
+            <DIV class="message">
+                <P>
+                    <SPAN class="message__name">Some User Name</SPAN>
+                    <SPAN class="message__meta">{{createdAt}}</SPAN>
+                </P>
+                <P>{{message}}</P>
             </DIV>
         </SCRIPT>
 
         <SCRIPT id="location-message-template" type="text/html">
-            <DIV>
-                <P>{{createdAt}} - <A HREF="{{url}}" target="_blank">My current location</A></P>
+            <DIV class="message">
+                <P>
+                    <SPAN class="message__name">Some User Name</SPAN>
+                    <SPAN class="message__meta">{{createdAt}}</SPAN>
+                </P>
+                <P><A HREF="{{url}}" target="_blank">My current location</A></P>
             </DIV>
         </SCRIPT>
 
